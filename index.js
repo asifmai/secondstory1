@@ -36,7 +36,7 @@ const fs = require('fs');
       }),
       page.click('button.log-in'),
     ]);
-    for (let i = 21; i < data.length; i++) {   
+    for (let i = 0; i < data.length; i++) {   
       console.log(i, 'Now of link #: ', i);
       const response = await page.goto(data[i].url, {
         timeout: 0,
