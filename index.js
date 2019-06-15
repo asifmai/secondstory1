@@ -11,8 +11,8 @@ const fs = require('fs');
     console.log('Started Scraping at: ', new Date());
     const data = await xlstojson('data.xlsx', 'data.json');
     const browser = await puppeteer.launch({
-      headless: false,
-      args: ['--window-size=1366,768']
+      headless: true,
+      args: ['--window-size=1366,768', '--no-sandbox']
     });
     const page = await browser.newPage();
     await page.setViewport({
