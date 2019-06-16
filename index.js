@@ -9,10 +9,15 @@ const fs = require('fs');
 (async () => {
   try {
     console.log('Started Scraping at: ', new Date());
-    const data = await xlstojson('data.xlsx', 'data.json');
+    // const data = await xlstojson('data.xlsx', 'data.json');
+    const data = JSON.parse(fs.readFileSync('data.json'));
     const browser = await puppeteer.launch({
+      // headless: false,
       headless: true,
-      args: ['--window-size=1366,768', '--no-sandbox']
+      args: [
+        '--window-size=1366,768', 
+        '--no-sandbox',
+      ]
     });
     const page = await browser.newPage();
     await page.setViewport({
@@ -20,7 +25,7 @@ const fs = require('fs');
       height: 768
     });
     const response = await page.goto(data[0].url, {
-      // timeout: 0,
+      timeout: 0,
       waitUntil: 'networkidle2'
     });
     await page.waitForSelector('input#si-email');
@@ -36,7 +41,7 @@ const fs = require('fs');
       }),
       page.click('button.log-in'),
     ]);
-    for (let i = 0; i < data.length; i++) {   
+    for (let i = 320; i < data.length; i++) {   
       console.log(i, 'Now of link #: ', i);
       const response = await page.goto(data[i].url, {
         timeout: 0,
