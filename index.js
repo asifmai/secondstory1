@@ -5,6 +5,7 @@ const loginCredentials = {
 };
 const xlstojson = require('./exceltojson');
 const fs = require('fs');
+const csvconvert = require('./csvconvert');
 
 (async () => {
   try {
@@ -81,6 +82,7 @@ const fs = require('fs');
         fs.writeFileSync('currentstatus.txt', `Done with URL # ${i}`, 'utf-8');
       }
     }
+    await csvconvert(data);
     await page.close();
     await browser.close();
     console.log('Finished Scraping at: ', new Date());
